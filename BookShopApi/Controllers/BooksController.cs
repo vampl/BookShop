@@ -76,4 +76,25 @@ public class BooksController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpDelete]
+    public IActionResult DeleteBooks([FromQuery] params long[] isbns)
+    {
+        List<Book> books = new();
+        foreach (long isbn in isbns)
+        {
+            Book? book = _context.Books.Find(isbn);
+            if (book is null)
+            {
+                return NotFound();
+            }
+
+            books.Add(book);
+        }
+
+        _context.Books.RemoveRange(books);
+        _context.SaveChanges();
+
+        return NoContent();
+    }
 }
