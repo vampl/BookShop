@@ -25,10 +25,10 @@ public class BooksController : ControllerBase
         return Ok(_context.Books.ToList());
     }
 
-    [HttpGet("{id:int}")]
-    public ActionResult<Book> GetBook(int id)
+    [HttpGet("{isbn:long}")]
+    public ActionResult<Book> GetBook(long isbn)
     {
-        Book? book = _context.Books.Find(id);
+        Book? book = _context.Books.Find(isbn);
         if (book is null)
         {
             return NotFound();
@@ -40,16 +40,17 @@ public class BooksController : ControllerBase
     [HttpPost]
     public ActionResult<Book> PostBook([FromBody] Book book)
     {
+        book.Genre.Id = book.GenreId;
         _context.Books.Add(book);
         _context.SaveChanges();
 
         return CreatedAtAction("PostBook", book);
     }
 
-    [HttpPut("{id:int}")]
-    public IActionResult PutBook(int id, [FromBody] Book modifiedBook)
+    [HttpPut("{isbn:long}")]
+    public IActionResult PutBook(long isbn, [FromBody] Book modifiedBook)
     {
-        Book? book = _context.Books.Find(id);
+        Book? book = _context.Books.Find(isbn);
         if (book is null)
         {
             return NotFound();
@@ -62,10 +63,10 @@ public class BooksController : ControllerBase
         return NoContent();
     }
 
-    [HttpDelete("{id:int}")]
-    public IActionResult DeleteBook(int id)
+    [HttpDelete("{isbn:long}")]
+    public IActionResult DeleteBook(long isbn)
     {
-        Book? book = _context.Books.Find(id);
+        Book? book = _context.Books.Find(isbn);
         if (book is null)
         {
             return NotFound();
