@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace BookShopApi.Models;
 
@@ -17,8 +18,9 @@ public class Book
     public int Pages { get; set; }
 
     /* Navigation properties */
+    [Required]
     public int GenreId { get; set; }
 
     [JsonIgnore]
-    public virtual Genre Genre { get; set; } = new();
+    public virtual Genre? Genre { get; set; }
 }
