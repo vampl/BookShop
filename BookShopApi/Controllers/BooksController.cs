@@ -40,7 +40,6 @@ public class BooksController : ControllerBase
     [HttpPost]
     public ActionResult<Book> PostBook([FromBody] Book book)
     {
-        book.Genre.Id = book.GenreId;
         _context.Books.Add(book);
         _context.SaveChanges();
 
