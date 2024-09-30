@@ -76,4 +76,25 @@ public class GenreController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpDelete]
+    public IActionResult DeleteGenres([FromQuery] params long[] ids)
+    {
+        List<Genre> genres = new();
+        foreach (long id in ids)
+        {
+            Genre? genre = _context.Genres.Find(id);
+            if (genre is null)
+            {
+                return NotFound();
+            }
+
+            genres.Add(genre);
+        }
+
+        _context.Genres.RemoveRange(genres);
+        _context.SaveChanges();
+
+        return NoContent();
+    }
 }
