@@ -4,7 +4,7 @@ namespace BookShopApi.Models;
 
 public class Book
 {
-    public int Isbn { get; set; }
+    public long Isbn { get; set; }
 
     public string Title { get; set; } = null!;
 
@@ -16,8 +16,9 @@ public class Book
 
     public int Pages { get; set; }
 
+    /* Navigation properties */
     public int GenreId { get; set; }
 
     [JsonIgnore]
-    public virtual Genre Genre { get; set; }
+    public virtual Genre Genre { get; set; } = new();
 }
