@@ -20,12 +20,15 @@ public class GenreController : ControllerBase
     }
 
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public ActionResult<IEnumerable<Genre>> GetGenres()
     {
         return Ok(_context.Genres.ToList());
     }
 
     [HttpGet("{id:int}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult<Genre> GetGenre(int id)
     {
         Genre? genre = _context.Genres.Find(id);
@@ -38,6 +41,7 @@ public class GenreController : ControllerBase
     }
 
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
     public ActionResult<Genre> PostGenre([FromBody] Genre genre)
     {
         _context.Genres.Add(genre);
@@ -47,6 +51,8 @@ public class GenreController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult PutGenre(int id, [FromBody] Genre modifiedGenre)
     {
         Genre? genre = _context.Genres.Find(id);
@@ -63,6 +69,8 @@ public class GenreController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult DeleteGenre(int id)
     {
         Genre? genre = _context.Genres.Find(id);
@@ -78,6 +86,8 @@ public class GenreController : ControllerBase
     }
 
     [HttpDelete]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult DeleteGenres([FromQuery] params long[] ids)
     {
         List<Genre> genres = new();

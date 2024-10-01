@@ -20,12 +20,16 @@ public class BooksController : ControllerBase
     }
 
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult<IEnumerable<Book>> GetBooks()
     {
         return Ok(_context.Books.ToList());
     }
 
     [HttpGet("{isbn:long}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult<Book> GetBook(long isbn)
     {
         Book? book = _context.Books.Find(isbn);
@@ -38,6 +42,7 @@ public class BooksController : ControllerBase
     }
 
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
     public ActionResult<Book> PostBook([FromBody] Book book)
     {
         _context.Books.Add(book);
@@ -47,6 +52,8 @@ public class BooksController : ControllerBase
     }
 
     [HttpPut("{isbn:long}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult PutBook(long isbn, [FromBody] Book modifiedBook)
     {
         Book? book = _context.Books.Find(isbn);
@@ -63,6 +70,8 @@ public class BooksController : ControllerBase
     }
 
     [HttpDelete("{isbn:long}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult DeleteBook(long isbn)
     {
         Book? book = _context.Books.Find(isbn);
@@ -78,6 +87,8 @@ public class BooksController : ControllerBase
     }
 
     [HttpDelete]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult DeleteBooks([FromQuery] params long[] isbns)
     {
         List<Book> books = new();
