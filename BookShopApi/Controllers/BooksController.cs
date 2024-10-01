@@ -27,12 +27,12 @@ public class BooksController : ControllerBase
         return Ok(_context.Books.ToList());
     }
 
-    [HttpGet("{isbn:long}")]
+    [HttpGet("{id:int}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public ActionResult<Book> GetBook(long isbn)
+    public ActionResult<Book> GetBook(int id)
     {
-        Book? book = _context.Books.Find(isbn);
+        Book? book = _context.Books.Find(id);
         if (book is null)
         {
             return NotFound();
@@ -51,12 +51,12 @@ public class BooksController : ControllerBase
         return CreatedAtAction("PostBook", book);
     }
 
-    [HttpPut("{isbn:long}")]
+    [HttpPut("{id:int}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public IActionResult PutBook(long isbn, [FromBody] Book modifiedBook)
+    public IActionResult PutBook(int id, [FromBody] Book modifiedBook)
     {
-        Book? book = _context.Books.Find(isbn);
+        Book? book = _context.Books.Find(id);
         if (book is null)
         {
             return NotFound();
@@ -69,12 +69,12 @@ public class BooksController : ControllerBase
         return NoContent();
     }
 
-    [HttpDelete("{isbn:long}")]
+    [HttpDelete("{id:int}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public IActionResult DeleteBook(long isbn)
+    public IActionResult DeleteBook(int id)
     {
-        Book? book = _context.Books.Find(isbn);
+        Book? book = _context.Books.Find(id);
         if (book is null)
         {
             return NotFound();
@@ -89,10 +89,10 @@ public class BooksController : ControllerBase
     [HttpDelete]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public IActionResult DeleteBooks([FromQuery] params long[] isbns)
+    public IActionResult DeleteBooks([FromQuery] params int[] ids)
     {
         List<Book> books = new();
-        foreach (long isbn in isbns)
+        foreach (int isbn in ids)
         {
             Book? book = _context.Books.Find(isbn);
             if (book is null)
