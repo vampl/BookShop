@@ -5,11 +5,18 @@ namespace BookShopApi.Models;
 
 public class Book
 {
-    public long Isbn { get; set; }
+    public int Id { get; set; }
 
+    [Required]
+    public string Isbn10 { get; set; } = null!;
+
+    [Required]
+    public string Isbn13 { get; set; } = null!;
+
+    [Required]
     public string Title { get; set; } = null!;
 
-    public string Author { get; set; } = null!;
+    public string Author { get; set; }
 
     public DateTime PublishedAt { get; set; }
 
