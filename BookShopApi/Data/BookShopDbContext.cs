@@ -16,7 +16,12 @@ public class BookShopDbContext : DbContext
     {
         modelBuilder.Entity<Book>(builder =>
         {
-            builder.HasKey(book => book.Isbn);
+            builder.HasKey(book => book.Id);
+
+            builder.HasIndex(book => book.Isbn10)
+                .IsUnique();
+            builder.HasIndex(book => book.Isbn13)
+                .IsUnique();
         });
 
         modelBuilder.Entity<Genre>(builder =>
