@@ -4,7 +4,7 @@ public static class StringExtensions
 {
     public static bool IsNumber(this string str)
     {
-        return int.TryParse(str, out int _);
+        return long.TryParse(str, out long _);
     }
 
     public static int[] ExtractDigitsToArray(this string str)
