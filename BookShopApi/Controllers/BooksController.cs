@@ -21,7 +21,6 @@ public class BooksController : ControllerBase
 
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult<IEnumerable<Book>> GetBooks()
     {
         return Ok(_context.Books.ToList());
