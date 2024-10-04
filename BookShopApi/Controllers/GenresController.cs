@@ -10,11 +10,11 @@ namespace BookShopApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class GenreController : ControllerBase
+public class GenresController : ControllerBase
 {
     private readonly BookShopDbContext _context;
 
-    public GenreController(BookShopDbContext context)
+    public GenresController(BookShopDbContext context)
     {
         _context = context;
     }
@@ -88,10 +88,10 @@ public class GenreController : ControllerBase
     [HttpDelete]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public IActionResult DeleteGenres([FromQuery] params long[] ids)
+    public IActionResult DeleteGenres([FromQuery] params int[] ids)
     {
         List<Genre> genres = new();
-        foreach (long id in ids)
+        foreach (int id in ids)
         {
             Genre? genre = _context.Genres.Find(id);
             if (genre is null)
